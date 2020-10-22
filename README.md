@@ -4,20 +4,42 @@ Walk-through tutorials for [HiCOPS](https://github.com/hicops/hicops) ([Docs](ht
 # Setup
 
 ## Environment Setup
-Run the following bash script to install required packages.
+Run the following bash script to install and load the required packages.
 
 ```bash
 source ./setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME]
 ```
 Run without parameters to see the help.
 
+***Note:*** If the environment is already setup (for example in a new shell), simply load the spack environment using the following commands:
+
+```
+# set these variables to the ones used in environment setup
+export WORKING_DIR=<WORKING_DIR>
+export SPACK_ENV_NAME=<SPACK_ENV_NAME>
+```
+
+```bash
+# Setup spack
+export PATH=${WORKING_DIR}/spack/bin:$PATH
+. ${WORKING_DIR}/spack/share/spack/setup-env.sh
+
+# Activate the Spack env
+spack env activate ${SPACK_ENV_NAME}
+
+# export path to MPLCONFIGDIR
+mkdir -p $HOME/mplconfigdir
+export MPLCONFIGDIR=$HOME/mplconfigdir
+```
+
 ## Build
 Run the following bash script after running the `setup-env.sh` to install the timemory and hicops.
 
 ```bash
-source install.sh
+source install.sh [WORKING_DIR]
 ```
 Run without paramters to see the help.
+This script will install timemory and hicops (with and without instrumentation support).
 
 # Examples
 TBA 
