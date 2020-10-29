@@ -17,17 +17,15 @@ Run without parameters to see the help.
 # set these variables to the ones used in environment setup
 export WORKING_DIR=<WORKING_DIR>
 export SPACK_ENV_NAME=<SPACK_ENV_NAME>
-```
 
-```bash
-# Setup spack
+# add spack to PATH
 export PATH=${WORKING_DIR}/spack/bin:$PATH
 . ${WORKING_DIR}/spack/share/spack/setup-env.sh
 
-# Activate the Spack env
+# activate the spack env
 spack env activate ${SPACK_ENV_NAME}
 
-# export path to MPLCONFIGDIR
+# export MPLCONFIGDIR env var
 mkdir -p $HOME/mplconfigdir
 export MPLCONFIGDIR=$HOME/mplconfigdir
 ```
