@@ -112,6 +112,7 @@ function packages() {
     spack install py-argparse%gcc@8.4.0
     spack install py-matplotlib%gcc@8.4.0
     spack install py-pytz%gcc@8.4.0
+    spack install py-pip%gcc@8.4.0
 
     # wait and sync
     sync
