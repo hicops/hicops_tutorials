@@ -11,7 +11,7 @@
 
 # print usage
 function usage() {
-    echo "USAGE: setup.sh [WORKING_DIR] [SPACK_ENV_NAME]"
+    echo "USAGE: setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME]"
 }
 
 #
