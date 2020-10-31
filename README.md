@@ -1,4 +1,4 @@
-# hicops-tutorials
+# <img src="https://user-images.githubusercontent.com/14217455/97766105-66d7fd80-1aeb-11eb-9741-9938aec1b8d7.jpg" width="75" valign="middle" alt="HiCOPS"/> hicops-tutorials
 Walk-through tutorials for [HiCOPS](https://github.com/hicops/hicops) ([Docs](https://hicops.github.io)) installation, instrumentation, integration and execution.
 
 # Setup
