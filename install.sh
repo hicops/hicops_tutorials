@@ -48,7 +48,7 @@ spack env activate ${SPACK_ENV}
 #
 # Clone timemory if does not exist
 #
-if ! [ ! -d "${WDIR}/timemory" ] ; then
+if [ ! -d "${WDIR}/timemory" ] ; then
     git clone https://github.com/NERSC/timemory.git
 fi
 
@@ -60,7 +60,7 @@ mkdir -p build-auto
 cd build-auto
 
 # configure
-cmake .. -DTIMEMORY_USE_MPI=ON -DTIMEMORY_BUILD_MPIP_LIBRARY=ON -DTIMEMORY_USE_OMPT=ON -DTIMEMORY_USE_GOTCHA=ON -DCMAKE_INSTALL_PREFIX=../install-auto -DCMAKE_CXX_STANDARD=14 -DTIMEMORY_USE_PYTHON=ON -DTIMEMORY_BUILD_TOOLS=ON -DUSE_MPI=ON -DUSE_OPENMP=ON -DTIMEMORY_USE_PAPI=ON
+cmake .. -DTIMEMORY_USE_MPI=ON -DTIMEMORY_BUILD_MPIP_LIBRARY=ON -DTIMEMORY_USE_OMPT=ON -DTIMEMORY_USE_GOTCHA=ON -DCMAKE_INSTALL_PREFIX=../install-auto -DCMAKE_CXX_STANDARD=17 -DTIMEMORY_USE_PYTHON=ON -DTIMEMORY_BUILD_TOOLS=ON -DUSE_MPI=ON -DUSE_OPENMP=ON -DTIMEMORY_USE_PAPI=ON
 
 # install timemory
 make install -j 16
@@ -79,7 +79,7 @@ popd
 #
 # Clone hicops if does not exist
 #
-if ! [ ! -d "${WDIR}/hicops" ] ; then
+if [ ! -d "${WDIR}/hicops" ] ; then
     git clone https://github.com/hicops/hicops.git
 fi
 

@@ -42,7 +42,7 @@ fi
 #
 # Clone spack if does not exist
 #
-if ! [ ! -d "${WDIR}/spack" ] ; then
+if [ ! -d "${WDIR}/spack" ] ; then
     pushd $WDIR
     git clone https://github.com/spack/spack.git
     popd
@@ -74,6 +74,9 @@ sync
 export PATH=$WDIR/spack/bin:$PATH
 . $WDIR/spack/share/spack/setup-env.sh
 
+# find all compilers
+spack compiler find
+
 #
 # Function containing packages
 #
@@ -81,38 +84,38 @@ function packages() {
     #
     # Timemory dependencies only
     #
-    spack install --only dependencies timemory@develop%gcc@8.4.0 +mpi +mpip_library +ompt +papi +dyninst +python +python_deps +tools +upcxx +examples +ompt_library   +gotcha
+    spack install --only dependencies timemory@develop%gcc@10.2.0 +mpi +mpip_library +ompt +papi +dyninst +python +python_deps +tools +upcxx +examples +ompt_library   +gotcha
 
     #
     # HDF5 and GasNet-EX
     #
-    spack install hdf5@1.12.0%gcc@8.4.0 +cxx +hl +mpi +shared +szip +threadsafe
-    spack install gasnet%gcc@8.4.0 +ibv
+    spack install hdf5%gcc@10.2.0 +cxx +hl +mpi +shared +szip +threadsafe
+    spack install gasnet%gcc@10.2.0 +ibv
 
     #
     # Additional required packages
     #
-    spack install cmake%gcc@8.4.0
-    spack install py-setuptools-scm%gcc@8.4.0
-    spack install py-kiwisolver%gcc@8.4.0
-    spack install py-python-dateutil%gcc@8.4.0
-    spack install pkgconf%gcc@8.4.0
-    spack install py-numexpr%gcc@8.4.0
-    spack install py-setuptools%gcc@8.4.0
-    spack install py-et-xmlfile%gcc@8.4.0
-    spack install py-bottleneck%gcc@8.4.0
-    spack install py-jdcal%gcc@8.4.0
-    spack install py-pyparsing%gcc@8.4.0
-    spack install py-cython%gcc@8.4.0
-    spack install py-pandas%gcc@8.4.0
-    spack install py-subprocess32%gcc@8.4.0
-    spack install py-cycler%gcc@8.4.0
-    spack install py-openpyxl%gcc@8.4.0
-    spack install py-six%gcc@8.4.0
-    spack install py-argparse%gcc@8.4.0
-    spack install py-matplotlib%gcc@8.4.0
-    spack install py-pytz%gcc@8.4.0
-    spack install py-pip%gcc@8.4.0
+    spack install cmake%gcc@10.2.0
+    spack install py-setuptools-scm%gcc@10.2.0
+    spack install py-kiwisolver%gcc@10.2.0
+    spack install py-python-dateutil%gcc@10.2.0
+    spack install pkgconf%gcc@10.2.0
+    spack install py-numexpr%gcc@10.2.0
+    spack install py-setuptools%gcc@10.2.0
+    spack install py-et-xmlfile%gcc@10.2.0
+    spack install py-bottleneck%gcc@10.2.0
+    spack install py-jdcal%gcc@10.2.0
+    spack install py-pyparsing%gcc@10.2.0
+    spack install py-cython%gcc@10.2.0
+    spack install py-pandas%gcc@10.2.0
+    spack install py-subprocess32%gcc@10.2.0
+    spack install py-cycler%gcc@10.2.0
+    spack install py-openpyxl%gcc@10.2.0
+    spack install py-six%gcc@10.2.0
+    spack install py-argparse%gcc@10.2.0
+    spack install py-matplotlib%gcc@10.2.0
+    spack install py-pytz%gcc@10.2.0
+    spack install py-pip%gcc@10.2.0
 
     # wait and sync
     sync
