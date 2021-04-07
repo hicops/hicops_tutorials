@@ -48,7 +48,7 @@ if [ ! -d "${WDIR}/spack" ] ; then
     popd
 
     # Set the default MPI distribution to mpich
-    sed -i "s/openmpi, mpich/mpich, openmpi/g" $WDIR/spack/etc/spack/defaults/packages.yaml
+    #sed -i "s/openmpi, mpich/mpich, openmpi/g" $WDIR/spack/etc/spack/defaults/packages.yaml
 
     #
     # Optional
@@ -62,6 +62,19 @@ if [ ! -d "${WDIR}/spack" ] ; then
     
     # Uncomment the following line:
     # build_jobs: 16 (set it acc to your system)
+
+    # Add the following lines to $WDIR/spack/etc/spack/defaults/packages.yaml
+
+    #packages:
+    #  mpich:
+    #    externals:
+    #      -spec: .. 
+    #      prefix: ..
+    #  openmpi:
+    #      externals:
+    #        - spec: "openmpi@<version>%gcc@<compiler> arch=linux-<architecture>"
+    #          prefix: /path/to/system/mpi/install
+    #  all:...
 fi
 
 #
@@ -75,7 +88,7 @@ export PATH=$WDIR/spack/bin:$PATH
 . $WDIR/spack/share/spack/setup-env.sh
 
 # find all compilers
-spack compiler find
+# spack compiler find
 
 #
 # Function containing packages
@@ -84,13 +97,13 @@ function packages() {
     #
     # Timemory dependencies only
     #
-    spack install --only dependencies timemory@develop%gcc@10.2.0 +mpi +mpip_library +ompt +papi +dyninst +python +python_deps +tools +upcxx +examples +ompt_library   +gotcha
+    spack install --only dependencies timemory@3.1.0%gcc@10.2.0 +mpi +mpip_library +ompt +papi +dyninst +python +python_deps +tools +upcxx +examples +ompt_library   +gotcha
 
     #
     # HDF5 and GasNet-EX
     #
-    spack install hdf5%gcc@10.2.0 +cxx +hl +mpi +shared +szip +threadsafe
-    spack install gasnet%gcc@10.2.0 +ibv
+    # spack install hdf5%gcc@10.2.0 +cxx +hl +mpi +shared +szip +threadsafe
+    # spack install gasnet%gcc@10.2.0 +ibv
 
     #
     # Additional required packages
@@ -130,16 +143,16 @@ packages
 #
 # Create and activate a spack environment
 #
-spack env create ${SPACK_ENV}
-spack env activate ${SPACK_ENV}
+# spack env create ${SPACK_ENV}
+# spack env activate ${SPACK_ENV}
 
 # Add packages to the environment
-packages
+# packages
 
 #
 # Load the spack environment again
 #
-spack env activate ${SPACK_ENV}
+#spack env activate ${SPACK_ENV}
 
 #
 # export MPLCONFIGDIR

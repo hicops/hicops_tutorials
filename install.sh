@@ -11,7 +11,7 @@
 
 # print usage
 function usage() {
-    echo "USAGE: install.sh [WORKING_DIR]"
+    echo "USAGE: install.sh [WORKING_DIR] [SPACK_ENV_NAME]"
 }
 
 #
@@ -55,6 +55,10 @@ fi
 # go to timemory directory
 pushd $PWD/timemory
 
+# checkout v3.1.0
+git submodule update --init
+git checkout v3.1.0
+git submodule update --init
 rm -rf build-auto
 mkdir -p build-auto
 cd build-auto
@@ -73,6 +77,7 @@ export PYTHONPATH=$PWD:$PYTHONPATH
 
 cd ../install-auto
 export CMAKE_PREFIX_PATH=$PWD:$CMAKE_PREFIX_PATH
+# export CMAKE_PREFIX_PATH=$PWD/../install-auto:$CMAKE_PREFIX_PATH
 
 popd
 
@@ -85,10 +90,10 @@ fi
 
 # go to hicops directory
 pushd $PWD/hicops
-
+git submodule update --init
 rm -rf build-auto-inst
 mkdir -p build-auto-inst
-cd build-auto
+cd build-auto-inst
 
 # configure and install with instr
 cmake .. -DUSE_MPI=ON -DUSE_TIMEMORY=ON -DUSE_MPIP_LIBRARY=ON -DCMAKE_INSTALL_PREFIX=../install-build-auto-inst 
