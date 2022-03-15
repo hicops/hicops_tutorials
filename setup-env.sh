@@ -11,7 +11,11 @@
 
 # print usage
 function usage() {
-    echo "USAGE: setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME]"
+    echo "NOTE: Before running this script, know that the following installation will set MPICH as your default "
+    echo "      MPI distribution. To avoid that and use OpenMPI, comment out line #86 and uncomment line #90"
+    echo "                     "
+
+    echo "USAGE: setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME] [optional COMPILER: e.g. gcc@8.4.0, gcc@10.2.0, intel@10.2]"
 }
 
 #
@@ -39,42 +43,20 @@ if [ -z "$2" ] ; then
     exit 0
 fi
 
+COMPILER=$3
+# if not provided
+if [ -z "$3" ] ; then
+    echo "No compiler provided. Trying to use the latest available"
+fi
+
 #
 # Clone spack if does not exist
 #
 if [ ! -d "${WDIR}/spack" ] ; then
     pushd $WDIR
     git clone https://github.com/spack/spack.git
+
     popd
-
-    # Set the default MPI distribution to mpich
-    #sed -i "s/openmpi, mpich/mpich, openmpi/g" $WDIR/spack/etc/spack/defaults/packages.yaml
-
-    #
-    # Optional
-    #
-
-    # Set the $WDIR/spack/etc/spack/defaults/config.yaml
-    # build_stage:
-    #   - ~/spack-stage
-    #   - ~/.spack/stage
-    #  # - $spack/var/spack/stage
-    
-    # Uncomment the following line:
-    # build_jobs: 16 (set it acc to your system)
-
-    # Add the following lines to $WDIR/spack/etc/spack/defaults/packages.yaml
-
-    #packages:
-    #  mpich:
-    #    externals:
-    #      -spec: .. 
-    #      prefix: ..
-    #  openmpi:
-    #      externals:
-    #        - spec: "openmpi@<version>%gcc@<compiler> arch=linux-<architecture>"
-    #          prefix: /path/to/system/mpi/install
-    #  all:...
 fi
 
 #
@@ -85,50 +67,65 @@ sync
 
 # setup environment
 export PATH=$WDIR/spack/bin:$PATH
-. $WDIR/spack/share/spack/setup-env.sh
+source $WDIR/spack/share/spack/setup-env.sh
 
-# find all compilers
-# spack compiler find
+# if compiler not provided
+if [ -z $COMPILER ] ; then
+    # find all compilers if needed
+    spack compiler find
+    spack compilers
+else
+    COMPILER=%$COMPILER
+fi
 
 #
-# Function containing packages
+# Function containing required packages
 #
+
+# Set the default MPI distribution to MPICH to use instead of OpenMPI
+sed -i "s/openmpi, mpich/mpich, openmpi/g" $WDIR/spack/etc/spack/defaults/packages.yaml
+
+# OpenMPI sometimes causes issues but feel free to install it instead of MPICH 
+# by commenting out the above line and uncommenting the below line
+# spack install openmpi${COMPILER} +thread_multiple
+
 function packages() {
+
     #
     # Timemory dependencies only
     #
-    spack install --only dependencies timemory@3.1.0%gcc@10.2.0 +mpi +mpip_library +ompt +papi +dyninst +python +python_deps +tools +upcxx +examples +ompt_library   +gotcha
+    spack install --only dependencies timemory@3.1.0${COMPILER} +mpi +mpip_library +papi +dyninst +python +tools +examples
 
     #
     # HDF5 and GasNet-EX
     #
-    # spack install hdf5%gcc@10.2.0 +cxx +hl +mpi +shared +szip +threadsafe
-    # spack install gasnet%gcc@10.2.0 +ibv
+    # spack install hdf5${COMPILER} +cxx +hl +mpi +shared +szip +threadsafe
+    # spack install gasnet${COMPILER} +ibv
 
     #
     # Additional required packages
     #
-    spack install cmake%gcc@10.2.0
-    spack install py-setuptools-scm%gcc@10.2.0
-    spack install py-kiwisolver%gcc@10.2.0
-    spack install py-python-dateutil%gcc@10.2.0
-    spack install pkgconf%gcc@10.2.0
-    spack install py-numexpr%gcc@10.2.0
-    spack install py-setuptools%gcc@10.2.0
-    spack install py-et-xmlfile%gcc@10.2.0
-    spack install py-bottleneck%gcc@10.2.0
-    spack install py-jdcal%gcc@10.2.0
-    spack install py-pyparsing%gcc@10.2.0
-    spack install py-cython%gcc@10.2.0
-    spack install py-pandas%gcc@10.2.0
-    spack install py-subprocess32%gcc@10.2.0
-    spack install py-cycler%gcc@10.2.0
-    spack install py-openpyxl%gcc@10.2.0
-    spack install py-six%gcc@10.2.0
-    spack install py-argparse%gcc@10.2.0
-    spack install py-matplotlib%gcc@10.2.0
-    spack install py-pytz%gcc@10.2.0
-    spack install py-pip%gcc@10.2.0
+    spack install cmake${COMPILER}
+    spack install py-setuptools-scm${COMPILER}
+    spack install py-kiwisolver${COMPILER}
+    spack install py-python-dateutil${COMPILER}
+    spack install pkgconf${COMPILER}
+    spack install py-numexpr${COMPILER}
+    spack install py-setuptools${COMPILER}
+    spack install py-et-xmlfile${COMPILER}
+    spack install py-bottleneck${COMPILER}
+    spack install py-jdcal${COMPILER}
+    spack install py-pyparsing${COMPILER}
+    spack install py-cython${COMPILER}
+    spack install py-pandas${COMPILER}
+    spack install py-subprocess32${COMPILER}
+    spack install py-cycler${COMPILER}
+    spack install py-openpyxl${COMPILER}
+    spack install py-six${COMPILER}
+    spack install py-argparse${COMPILER}
+    spack install py-matplotlib${COMPILER}
+    spack install py-pytz${COMPILER}
+    spack install py-pip${COMPILER}
 
     # wait and sync
     sync
@@ -143,16 +140,16 @@ packages
 #
 # Create and activate a spack environment
 #
-# spack env create ${SPACK_ENV}
-# spack env activate ${SPACK_ENV}
+spack env create ${SPACK_ENV}
+spack env activate ${SPACK_ENV}
 
 # Add packages to the environment
-# packages
+packages
 
 #
 # Load the spack environment again
 #
-#spack env activate ${SPACK_ENV}
+spack env activate ${SPACK_ENV}
 
 #
 # export MPLCONFIGDIR
