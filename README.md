@@ -28,7 +28,7 @@ For GPU-Accelerated HiCOPS, clone:
 $ git clone https://github.com/mhaseeb123/hicops
 $ cd hicops ; git checkout -b gpu-hicops
 $ git fetch --all
-$ git pull --set-upstream origin/gpu-hicops gpu-hicops ; git pull
+$ git branch --set-upstream-to=origin/gpu-hicops gpu-hicops ; git pull
 ```
 
 For SGCI-supported HiCOPS, clone:
@@ -37,7 +37,7 @@ For SGCI-supported HiCOPS, clone:
 $ git clone https://github.com/mhaseeb123/hicops
 $ cd hicops ; git checkout -b sgci
 $ git fetch --all
-$ git pull --set-upstream origin/sgci sgci ; git pull
+$ git branch --set-upstream-to=origin/sgci sgci ; git pull
 ```
 
 * Assuming that HiCOPS has been cloned into `$HICOPS_DIR`, use CMake to configure and install HiCOPS like as follows:   
