@@ -56,6 +56,7 @@ fi
 if [ ! -d "${WDIR}/spack" ] ; then
     pushd $WDIR
     git clone https://github.com/spack/spack.git
+    git checkout tags/v0.17.1
     popd
 fi
 
@@ -117,6 +118,7 @@ function packages() {
     spack install py-matplotlib${COMPILER}
     spack install py-pytz${COMPILER}
     spack install py-pip${COMPILER}
+    spack install py-mpi4py${COMPILER}
 
     # wait and sync
     sync

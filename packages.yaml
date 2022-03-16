@@ -29,17 +29,6 @@ packages:
     - spec: "mpip@3.4.1"
       modules:
       - mpip/3.4.1
-  cmake:
-    buildable: False
-    externals:
-    - spec: "cmake@3.18.2"
-      modules:
-      - cmake/3.18.2
-  python:
-    externals:
-    - spec: "python@3.7.12"
-      modules:
-      - python37
   papi:
     externals:
     - spec: "papi@6.0.0.1"
@@ -80,16 +69,6 @@ packages:
     - spec: "nsight@10.2"
       modules:
       - cuda10.2/nsight
-  py-setuptools:
-    externals:
-    - spec: "py-setuptools@50.1.0"
-      modules:
-      - py-setuptools/50.1.0
-  py-cycler:
-    externals:
-    - spec: "py-cycler@0.10.0"
-      modules:
-      - py-cycler/0.10.0
   libiconv:
     buildable: False
     externals:

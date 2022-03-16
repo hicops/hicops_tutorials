@@ -55,7 +55,7 @@ fi
 if [ ! -d "${WDIR}/spack" ] ; then
     pushd $WDIR
     git clone https://github.com/spack/spack.git
-
+    git checkout tags/v0.17.1
     popd
 fi
 
