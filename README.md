@@ -56,7 +56,7 @@ $ export hicops_PATH=$PWD
 $ export PATH=${hicops_PATH}/bin:${hicops_PATH}/tools/dbtools:${hicops_PATH}/tools/ms2prep:${hicops_PATH}/bin/tools:$PATH
 $ export LD_LIBRARY_PATH=$hicops_PATH/lib:$LD_LIBRARY_PATH
 ```
-```
+
 
 # Full Setup
 
