@@ -24,13 +24,13 @@ packages:
       - openmpi/4.0.4
 ```
 
-**Note:** Setting `buildable: False` is needed for MPI-related packages, curl and in some cases CUDA-related packages.
+**Note:** Setting `buildable: False` is needed for `MPI`-related packages, `curl` and in some cases `CUDA`-related packages.
 
 
 **Note:** Adding all available basic system packages will significantly reduce the installation times. The following packages (and more) are recommended to be added to `packages.yaml` if available: 
 
 ```bash
-ncurses, python, cuda, py-pandas, py-matplotlib, py-numpy, libssl, curl, mpi, mpi4py, mpip, boost, bison, perl, xz, zlib
+mpi, curl, mpi4py, mpip, cuda, ncurses, python, cuda, py-pandas, py-matplotlib, py-numpy, libssl, boost, bison, perl, xz, zlib
 ```
 
 

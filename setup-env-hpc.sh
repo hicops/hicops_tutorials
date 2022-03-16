@@ -11,8 +11,9 @@
 
 # print usage
 function usage() {
-    echo "NOTE: Before running this script, know that the following installation will set MPICH as your default "
-    echo "      MPI distribution. To avoid that and use OpenMPI, comment out line #86 and uncomment line #90"
+    echo "IMPORTANT: Before running this script, make sure to add your MPI system module (from Lmod) along with other "
+    echo "           recommended modules to packages.yaml file to ensure correct & faster installation. Please see the "
+    echo "           README.md file for more information. "
     echo "                     "
 
     echo "USAGE: setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME] [optional COMPILER: e.g. gcc@8.4.0, gcc@10.2.0, intel@10.2]"
@@ -55,7 +56,6 @@ fi
 if [ ! -d "${WDIR}/spack" ] ; then
     pushd $WDIR
     git clone https://github.com/spack/spack.git
-
     popd
 fi
 
@@ -78,23 +78,20 @@ else
     COMPILER=%$COMPILER
 fi
 
+# Copy packages.yaml to Spack
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cp $SCRIPT_DIR/packages.yaml $WDIR/spack/etc/spack/packages.yaml
+
+
 #
 # Function containing required packages
 #
-
-# Set the default MPI distribution to MPICH to use instead of OpenMPI
-sed -i "s/openmpi, mpich/mpich, openmpi/g" $WDIR/spack/etc/spack/defaults/packages.yaml
-
-# OpenMPI sometimes causes issues but feel free to install it instead of MPICH 
-# by commenting out the above line and uncommenting the below line
-# spack install openmpi${COMPILER} +thread_multiple
-
 function packages() {
 
     #
     # Timemory dependencies only
     #
-    spack install --only dependencies timemory@3.1.0${COMPILER} +mpi +papi +dyninst +python +tools +examples
+    spack install --only dependencies timemory@3.1.0${COMPILER} +mpi +mpip_library +papi +dyninst +python +tools +examples
 
     #
     # Additional required packages
@@ -144,6 +141,9 @@ packages
 # Load the spack environment again
 #
 spack env activate ${SPACK_ENV}
+
+# simple slurm is needed for expanse
+pip install simple-slurm
 
 #
 # export MPLCONFIGDIR

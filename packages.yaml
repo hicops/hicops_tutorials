@@ -1,0 +1,105 @@
+# This file has been configured for the SDSC Expanse supercomputer. Please feel free to add/remove/edit Lmod module information according to your computing environment.
+
+# You can also add modules using their install paths as demonstrated for perl, bison in this file.
+
+packages:
+  mpi:
+    buildable: False # ensures this package is always taken from system
+  openmpi:
+    externals:
+    - spec: "openmpi@4.0.4"
+      modules:
+      - openmpi/4.0.4
+  py-mpi4py:
+    buildable: False
+    externals:
+    - spec: "py-mpi4py@3.0.3"
+      modules:
+      - py-mpi4py/3.0.3
+  mpip:
+    buildable: False
+    externals:
+    - spec: "mpip@3.4.1"
+      modules:
+      - mpip/3.4.1
+  cmake:
+    buildable: False
+    externals:
+    - spec: "cmake@3.18.2"
+      modules:
+      - cmake/3.18.2
+  python:
+    externals:
+    - spec: "python@3.7.12"
+      modules:
+      - python37
+  papi:
+    externals:
+    - spec: "papi@6.0.0.1"
+      modules:
+      - papi/6.0.0.1
+  curl:
+    buildable: False
+    externals:
+    - spec: "curl@7.72.0"
+      modules:
+      - curl/7.72.0
+  boost:
+    buildable: False
+    externals:
+    - spec: "boost@1.74.0"
+      modules:
+      - boost/1.74.0
+  ncurses:
+    buildable: False
+    externals:
+    - spec: "ncurses@6.2"
+      modules:
+      - ncurses/6.2
+  cuda:
+    buildable: False
+    externals:
+    - spec: "cuda@10.2"
+      modules:
+      - cuda10.2/toolkit
+  nsight:
+    buildable: False
+    externals:
+    - spec: "nsight@10.2"
+      modules:
+      - cuda10.2/nsight
+  py-setuptools:
+    externals:
+    - spec: "py-setuptools@50.1.0"
+      modules:
+      - py-setuptools/50.1.0
+  py-cycler:
+    externals:
+    - spec: "py-cycler@0.10.0"
+      modules:
+      - py-cycler/0.10.0
+  libiconv:
+    buildable: False
+    externals:
+    - spec: "libiconv@1.16"
+      modules:
+      - libiconv/1.16
+  bison:
+    buildable: False
+    externals:
+    - spec: "bison@3.6.4"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/bison-3.6.4-omiok4yw4jkp3uw4d7bxefk26qgqjmhe
+  perl:
+    buildable: False
+    externals:
+    - spec: "perl@5.30.3"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/perl-5.30.3-chndkwu7r3f4ekgon3gda7g7xor6efwi
+  zlib:
+    externals:
+    - spec: "zlib@1.2.11"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/zlib-1.2.11-hxwnqb5jyququzk6sgccrxbya7ulfvhq
+  xz:
+    externals:
+    - spec: "zlib@1.2.11"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/xz-5.2.5-dsly4qmuslckhhd46vpwnppash2owrkd
+
