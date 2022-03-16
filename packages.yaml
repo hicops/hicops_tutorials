@@ -4,8 +4,8 @@
 
 packages:
   mpi:
-    buildable: False # ensures this package is always taken from system
-  openmpi: # MPI related systems distros are required.
+    buildable: False # ensures that MPI packages are always taken from system
+  openmpi:
     buildable: False 
     externals:
     - spec: "openmpi@4.0.4"
@@ -17,12 +17,6 @@ packages:
     - spec: "py-mpi4py@3.0.3"
       modules:
       - py-mpi4py/3.0.3
-  # libxml2 spack build was returning a weird error so using system
-  libxml2:
-    buildable: False
-    externals:
-    - spec: "libxml2@2.9.10"
-      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/libxml2-2.9.10-52hv55d7l4geqktj75out5xdlptoywze
   mpip:
     buildable: False
     externals:
@@ -34,6 +28,12 @@ packages:
     - spec: "papi@6.0.0.1"
       modules:
       - papi/6.0.0.1
+  # libxml2 spack build was returning a weird error so using system
+  libxml2:
+    buildable: False
+    externals:
+    - spec: "libxml2@2.9.10"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/libxml2-2.9.10-52hv55d7l4geqktj75out5xdlptoywze
   openblas:
     externals:
     - spec: "openblas@0.3.10"
@@ -63,35 +63,15 @@ packages:
     - spec: "cuda@10.2"
       modules:
       - cuda10.2/toolkit
-  nsight:
-    buildable: False
-    externals:
-    - spec: "nsight@10.2"
-      modules:
-      - cuda10.2/nsight
   libiconv:
     buildable: False
     externals:
     - spec: "libiconv@1.16"
       modules:
       - libiconv/1.16
-  bison:
-    buildable: False
-    externals:
-    - spec: "bison@3.6.4"
-      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/bison-3.6.4-omiok4yw4jkp3uw4d7bxefk26qgqjmhe
   perl:
     buildable: False
     externals:
     - spec: "perl@5.30.3"
-      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/perl-5.30.3-chndkwu7r3f4ekgon3gda7g7xor6efwi
-  zlib:
-    externals:
-    - spec: "zlib@1.2.11"
-      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/zlib-1.2.11-hxwnqb5jyququzk6sgccrxbya7ulfvhq
-  xz:
-    externals:
-    - spec: "zlib@1.2.11"
-      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/xz-5.2.5-dsly4qmuslckhhd46vpwnppash2owrkd
-
-
+    modules: 
+      - perl/5.30.0

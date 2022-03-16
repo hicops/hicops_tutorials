@@ -12,11 +12,11 @@
 # print usage
 function usage() {
     echo "IMPORTANT: Before running this script, make sure to add your MPI system module (from Lmod) along with other "
-    echo "           recommended modules to packages.yaml file to ensure correct & faster installation. Please see the "
+    echo "           recommended modules to packages.yaml file to ensure correct installation. Please see the "
     echo "           README.md file for more information. "
     echo "                     "
 
-    echo "USAGE: setup-env.sh [WORKING_DIR] [SPACK_ENV_NAME] [optional COMPILER: e.g. gcc@8.4.0, gcc@10.2.0, intel@10.2]"
+    echo "USAGE: setup-env-hpc.sh [WORKING_DIR] [(optional) COMPILER: e.g. gcc@8.4.0, gcc@10.2.0, intel@10.2]"
 }
 
 #
@@ -33,18 +33,7 @@ fi
 # convert relative path to abs path if needed
 WDIR=$(cd "$WDIR" && pwd -P)
 
-#
-# Environment name
-#
-SPACK_ENV=$2
-# if no environment name is provided
-if [ -z "$2" ] ; then 
-    echo "ERROR: Please provide a name for the spack environment"
-    usage
-    exit 0
-fi
-
-COMPILER=$3
+COMPILER=$2
 # if not provided
 if [ -z "$3" ] ; then
     echo "No compiler provided. Trying to use the latest available"
@@ -99,24 +88,11 @@ function packages() {
     #
     spack install cmake${COMPILER}
     spack install py-setuptools-scm${COMPILER}
-    spack install py-kiwisolver${COMPILER}
     spack install py-python-dateutil${COMPILER}
-    spack install pkgconf${COMPILER}
-    spack install py-numexpr${COMPILER}
-    spack install py-setuptools${COMPILER}
-    spack install py-et-xmlfile${COMPILER}
-    spack install py-bottleneck${COMPILER}
-    spack install py-jdcal${COMPILER}
-    spack install py-pyparsing${COMPILER}
     spack install py-cython${COMPILER}
-    spack install py-pandas${COMPILER}
     spack install py-subprocess32${COMPILER}
-    spack install py-cycler${COMPILER}
     spack install py-openpyxl${COMPILER}
-    spack install py-six${COMPILER}
     spack install py-argparse${COMPILER}
-    spack install py-matplotlib${COMPILER}
-    spack install py-pytz${COMPILER}
     spack install py-pip${COMPILER}
     spack install py-mpi4py${COMPILER}
 
@@ -130,25 +106,23 @@ function packages() {
 #
 packages
 
-#
-# Create and activate a spack environment
-#
-spack env create ${SPACK_ENV}
-spack env activate ${SPACK_ENV}
+# make sure to load the newly installed pip and python
+spack load python 
+spack load py-pip
 
-# Add packages to the environment
-packages
 
-#
-# Load the spack environment again
-#
-spack env activate ${SPACK_ENV}
-
-# simple slurm is needed for expanse
+# simple slurm is needed but only available via pip. 
 pip install simple-slurm
+# pandas and matplotlib failed to install via spack so installing via pip
+pip install pandas matplotlib
 
 #
 # export MPLCONFIGDIR
 #
 mkdir -p $HOME/mplconfigdir
 export MPLCONFIGDIR=$HOME/mplconfigdir
+
+#
+# update modules
+#
+module --ignore_cache avail &>/dev/null

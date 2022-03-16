@@ -103,22 +103,13 @@ function packages() {
     spack install py-setuptools-scm${COMPILER}
     spack install py-kiwisolver${COMPILER}
     spack install py-python-dateutil${COMPILER}
-    spack install pkgconf${COMPILER}
-    spack install py-numexpr${COMPILER}
-    spack install py-setuptools${COMPILER}
-    spack install py-et-xmlfile${COMPILER}
-    spack install py-bottleneck${COMPILER}
-    spack install py-jdcal${COMPILER}
-    spack install py-pyparsing${COMPILER}
     spack install py-cython${COMPILER}
     spack install py-pandas${COMPILER}
     spack install py-subprocess32${COMPILER}
     spack install py-cycler${COMPILER}
     spack install py-openpyxl${COMPILER}
-    spack install py-six${COMPILER}
     spack install py-argparse${COMPILER}
     spack install py-matplotlib${COMPILER}
-    spack install py-pytz${COMPILER}
     spack install py-pip${COMPILER}
 
     # wait and sync
@@ -139,11 +130,6 @@ spack env activate ${SPACK_ENV}
 
 # Add packages to the environment
 packages
-
-#
-# Load the spack environment again
-#
-spack env activate ${SPACK_ENV}
 
 #
 # export MPLCONFIGDIR
