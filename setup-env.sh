@@ -94,7 +94,7 @@ function packages() {
     #
     # Timemory dependencies only
     #
-    spack install --only dependencies timemory@3.1.0${COMPILER} +mpi +papi +dyninst +python +tools +examples
+    spack install --only dependencies timemory@3.1.0${COMPILER} +mpi +mpi +mpip_library +python +papi +tools
 
     #
     # Additional required packages
