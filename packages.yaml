@@ -5,7 +5,8 @@
 packages:
   mpi:
     buildable: False # ensures this package is always taken from system
-  openmpi:
+  openmpi: # MPI related systems distros are required.
+    buildable: False 
     externals:
     - spec: "openmpi@4.0.4"
       modules:
@@ -16,6 +17,12 @@ packages:
     - spec: "py-mpi4py@3.0.3"
       modules:
       - py-mpi4py/3.0.3
+  # libxml2 spack build was returning a weird error so using system
+  libxml2:
+    buildable: False
+    externals:
+    - spec: "libxml2@2.9.10"
+      prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/libxml2-2.9.10-52hv55d7l4geqktj75out5xdlptoywze
   mpip:
     buildable: False
     externals:
@@ -38,6 +45,11 @@ packages:
     - spec: "papi@6.0.0.1"
       modules:
       - papi/6.0.0.1
+  openblas:
+    externals:
+    - spec: "openblas@0.3.10"
+      modules:
+      - openblas/0.3.10-openmp
   curl:
     buildable: False
     externals:
@@ -102,4 +114,5 @@ packages:
     externals:
     - spec: "zlib@1.2.11"
       prefix: /cm/shared/apps/spack/cpu/opt/spack/linux-centos8-zen2/gcc-10.2.0/xz-5.2.5-dsly4qmuslckhhd46vpwnppash2owrkd
+
 
