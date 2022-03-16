@@ -62,13 +62,13 @@ $ export LD_LIBRARY_PATH=$hicops_PATH/lib:$LD_LIBRARY_PATH
 
 ## Environment Setup (Supercomputer)
 
-* Most supercomputers come with several essential software and packages compiled specifically for their system settings. These packages are often provided via a package manager, most commonly, Lmod. Since HiCOPS is built using `MPI` and `CUDA`, we will provide their system packages to the `packages.yaml` file. Apart from MPI, the recommended system packages to provide, *if available*, include: `mpip, papi, perl, ncurses, curl`. If one or more of these packages are not available by default, they will automatically be installed as explained later. Using Lmod, you can see the available modules on your supercomputer by running:   
+Most supercomputers come with several essential software and packages compiled specifically for their system settings. These packages are often provided via a package manager, most commonly, Lmod. Since HiCOPS is built using `MPI` and `CUDA`, we will provide their system packages to the `packages.yaml` file. Apart from MPI, the recommended system packages to provide, *if available*, include: `mpip, papi, perl, ncurses, curl`. If one or more of these packages are not available by default, they will automatically be installed as explained later. Using Lmod, you can see the available modules on your supercomputer by running:   
 
 ```bash
 $ module avail
 ```
 
-### Example (Setting up MPI on SDSC Expanse)
+* **Example: (Setting up MPI on SDSC Expanse)**
 Running `module avail` on SDSC Expanse revealed that the system has the `openmpi/4.0.4` MPI package installed. Therefore, we will add an entry for `openmpi` in the `packages.yaml` file right under the `mpi` entry like this:   
 
 ```yaml
